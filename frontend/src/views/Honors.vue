@@ -69,8 +69,8 @@
       </div>
 
       <template #footer>
-        <el-button @click="closeDialog">{{ savedId ? '完成' : '取消' }}</el-button>
-        <el-button type="primary" @click="handleSubmit" v-if="!savedId">保存</el-button>
+        <el-button @click="closeDialog">{{ isEdit ? '完成' : '取消' }}</el-button>
+        <el-button type="primary" @click="handleSubmit" >保存</el-button>
       </template>
     </el-dialog>
 
