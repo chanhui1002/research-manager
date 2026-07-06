@@ -92,10 +92,27 @@ html, body, #app { height: 100%; }
     flex-direction: column;
     align-items: flex-start;
     padding: 10px;
-    gap: 8px;
+    gap: 4px;
   }
   .app-title { font-size: 16px; }
   .nav-menu { width: 100%; overflow-x: auto; }
+  .nav-menu .el-menu-item { padding: 0 10px; font-size: 13px; }
+  .nav-menu .el-menu-item .el-icon { display: none; }
   .app-main { padding: 10px; }
+
+  .el-table { font-size: 13px; }
+  .el-table .el-button--small { padding: 4px 8px; font-size: 12px; }
+
+  .el-dialog { --el-dialog-width: 95% !important; width: 95% !important; margin: 10px auto !important; }
+
+  .el-form--inline .el-form-item { display: block; margin-right: 0; margin-bottom: 10px; width: 100%; }
+  .el-form--inline .el-form-item .el-input,
+  .el-form--inline .el-form-item .el-select,
+  .el-form--inline .el-form-item .el-input-number { width: 100% !important; }
+
+  .filter-card .el-form { display: block; }
+
+  .page-header { flex-wrap: wrap; gap: 8px; }
+  .page-header h2 { font-size: 16px; }
 }
 </style>

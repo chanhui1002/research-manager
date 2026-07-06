@@ -29,7 +29,7 @@
 
     <el-table :data="tableData" stripe border style="width: 100%; margin-top: 16px">
       <el-table-column prop="title" label="项目名称" min-width="200" show-overflow-tooltip />
-      <el-table-column prop="source" label="来源" width="140" show-overflow-tooltip />
+      <el-table-column prop="source" label="来源" width="210" show-overflow-tooltip />
       <el-table-column prop="level" label="级别" width="80" />
       <el-table-column prop="start_date" label="立项" width="100" />
       <el-table-column prop="status" label="状态" width="80" />
