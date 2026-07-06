@@ -193,9 +193,13 @@ async function handleSubmit() {
   if (isEdit.value) {
     await api.put(`/papers/${currentRow.value.id}`, form.value)
     ElMessage.success('更新成功')
+    dialogVisible.value = false
+    savedId.value = null
   } else {
     const { data } = await api.post('/papers', form.value)
     savedId.value = data.id
+    isEdit.value = true
+    currentRow.value = data
     ElMessage.success('创建成功，请上传证明材料')
   }
   loadData()

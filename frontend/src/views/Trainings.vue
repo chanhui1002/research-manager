@@ -118,8 +118,8 @@ function showAttachments(row) { currentRow.value = row; attachDialogVisible.valu
 
 async function handleSubmit() {
   if (!form.value.title) { ElMessage.warning('请填写培训名称'); return }
-  if (isEdit.value) { await api.put(`/trainings/${currentRow.value.id}`, form.value); ElMessage.success('更新成功') }
-  else { const { data } = await api.post('/trainings', form.value); savedId.value = data.id; ElMessage.success('创建成功，请上传证明材料') }
+  if (isEdit.value) { await api.put(`/trainings/${currentRow.value.id}`, form.value); ElMessage.success('更新成功'); dialogVisible.value = false; savedId.value = null }
+  else { const { data } = await api.post('/trainings', form.value); savedId.value = data.id; isEdit.value = true; currentRow.value = data; ElMessage.success('创建成功，请上传证明材料') }
   loadData()
 }
 
