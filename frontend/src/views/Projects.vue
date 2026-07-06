@@ -52,9 +52,7 @@
           <el-input v-model="form.project_number" />
         </el-form-item>
         <el-form-item label="项目来源">
-          <el-select v-model="form.source" clearable>
-            <el-option v-for="s in projectSources" :key="s" :label="s" :value="s" />
-          </el-select>
+          <el-input v-model="form.source" placeholder="请输入项目来源" />
         </el-form-item>
         <el-form-item label="项目级别">
           <el-select v-model="form.level" clearable>
