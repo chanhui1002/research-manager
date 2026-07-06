@@ -13,6 +13,8 @@ FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__fi
 
 @asynccontextmanager
 async def lifespan(app):
+    from app.db_sync import download_db
+    download_db()
     Base.metadata.create_all(bind=engine)
     yield
 

@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
@@ -20,3 +20,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def _after_commit(session):
+    from app.db_sync import schedule_upload
+    schedule_upload()
+
+
+event.listen(SessionLocal, "after_commit", _after_commit)

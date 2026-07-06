@@ -8,7 +8,7 @@ ENV SUPABASE_SERVICE_KEY_B64=c2Jfc2VjcmV0XzNrMDJiTWVBbFFxd0RQRnJILW8xRWdfNFRjUTR
 COPY backend/requirements.txt ./backend/
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
-COPY backend/ ./backend/
+COPY backend/app/ ./backend/app/
 COPY frontend/dist/ ./frontend/dist/
 
 WORKDIR /app/backend
