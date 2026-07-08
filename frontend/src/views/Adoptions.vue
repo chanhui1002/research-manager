@@ -108,14 +108,34 @@ function showAttachments(row) { currentRow.value = row; attachDialogVisible.valu
 
 async function handleSubmit() {
   if (!form.value.title || !form.value.department) { ElMessage.warning('请填写标题和采纳部门'); return }
-  if (isEdit.value) { await api.put(`/adoptions/${currentRow.value.id}`, form.value); ElMessage.success('更新成功'); dialogVisible.value = false; savedId.value = null }
-  else { const { data } = await api.post('/adoptions', form.value); savedId.value = data.id; isEdit.value = true; currentRow.value = data; ElMessage.success('创建成功，请上传采纳材料') }
-  loadData()
+  try {
+    if (isEdit.value) {
+      await api.put(`/adoptions/${currentRow.value.id}`, form.value)
+      ElMessage.success('更新成功')
+      dialogVisible.value = false
+      savedId.value = null
+    } else {
+      const { data } = await api.post('/adoptions', form.value)
+      savedId.value = data.id
+      isEdit.value = true
+      currentRow.value = data
+      ElMessage.success('创建成功，请上传采纳材料')
+    }
+    loadData()
+  } catch (e) {
+    ElMessage.error('保存失败：' + (e.response?.data?.detail || e.message))
+  }
 }
 
 async function handleDelete(row) {
   await ElMessageBox.confirm('确定删除？', '提示', { type: 'warning' })
-  await api.delete(`/adoptions/${row.id}`); ElMessage.success('删除成功'); loadData()
+  try {
+    await api.delete(`/adoptions/${row.id}`)
+    ElMessage.success('删除成功')
+    loadData()
+  } catch (e) {
+    ElMessage.error('删除失败：' + (e.response?.data?.detail || e.message))
+  }
 }
 
 onMounted(loadData)

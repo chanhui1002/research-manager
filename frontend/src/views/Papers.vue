@@ -190,26 +190,34 @@ async function handleSubmit() {
     ElMessage.warning('请填写论文题目')
     return
   }
-  if (isEdit.value) {
-    await api.put(`/papers/${currentRow.value.id}`, form.value)
-    ElMessage.success('更新成功')
-    dialogVisible.value = false
-    savedId.value = null
-  } else {
-    const { data } = await api.post('/papers', form.value)
-    savedId.value = data.id
-    isEdit.value = true
-    currentRow.value = data
-    ElMessage.success('创建成功，请上传证明材料')
+  try {
+    if (isEdit.value) {
+      await api.put(`/papers/${currentRow.value.id}`, form.value)
+      ElMessage.success('更新成功')
+      dialogVisible.value = false
+      savedId.value = null
+    } else {
+      const { data } = await api.post('/papers', form.value)
+      savedId.value = data.id
+      isEdit.value = true
+      currentRow.value = data
+      ElMessage.success('创建成功，请上传证明材料')
+    }
+    loadData()
+  } catch (e) {
+    ElMessage.error('保存失败：' + (e.response?.data?.detail || e.message))
   }
-  loadData()
 }
 
 async function handleDelete(row) {
   await ElMessageBox.confirm('确定删除该论文？', '提示', { type: 'warning' })
-  await api.delete(`/papers/${row.id}`)
-  ElMessage.success('删除成功')
-  loadData()
+  try {
+    await api.delete(`/papers/${row.id}`)
+    ElMessage.success('删除成功')
+    loadData()
+  } catch (e) {
+    ElMessage.error('删除失败：' + (e.response?.data?.detail || e.message))
+  }
 }
 
 onMounted(loadData)
