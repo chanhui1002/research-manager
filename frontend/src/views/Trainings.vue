@@ -125,7 +125,7 @@ async function handleSubmit() {
       dialogVisible.value = false
       savedId.value = null
     } else {
-      const { data } = await api.post('/trainings', form.value)
+      const { data } = await api.post('/trainings/', form.value)
       savedId.value = data.id
       isEdit.value = true
       currentRow.value = data
