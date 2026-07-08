@@ -106,10 +106,19 @@ function downloadFile(row) {
 }
 
 async function deleteFile(row) {
-  await ElMessageBox.confirm('确定删除该附件？', '提示', { type: 'warning' })
-  await api.delete(`/attachments/remove/${row.id}`)
-  ElMessage.success('删除成功')
-  loadAttachments()
+  try {
+    await ElMessageBox.confirm('确定删除该附件？', '提示', { type: 'warning' })
+  } catch {
+    return
+  }
+  try {
+    await api.delete(`/attachments/remove/${row.id}`)
+    ElMessage.success('删除成功')
+    loadAttachments()
+  } catch (err) {
+    const msg = err?.response?.data?.detail || err?.message || '删除失败'
+    ElMessage.error(`删除失败：${msg}`)
+  }
 }
 
 function formatSize(bytes) {

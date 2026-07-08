@@ -60,12 +60,21 @@ def delete_attachment(attachment_id: str, db: Session = Depends(get_db)):
     if not attachment:
         raise HTTPException(status_code=404, detail="附件不存在")
     storage_path = attachment.file_path
-    with httpx.Client(timeout=30) as client:
-        client.delete(
-            f"{SUPABASE_URL}/storage/v1/object/{BUCKET_NAME}",
-            headers=_headers(),
-            json={"prefixes": [storage_path]},
-        )
+    try:
+        with httpx.Client(timeout=30) as client:
+            resp = client.delete(
+                _storage_url(storage_path),
+                headers=_headers(),
+            )
+            if resp.status_code not in (200, 204):
+                raise HTTPException(
+                    status_code=502,
+                    detail=f"删除存储文件失败 (HTTP {resp.status_code}): {resp.text[:200]}",
+                )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"删除存储文件出错: {e}") from e
     db.delete(attachment)
     db.commit()
 
