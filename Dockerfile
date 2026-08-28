@@ -9,6 +9,8 @@ COPY backend/requirements.txt ./backend/
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
 COPY backend/app/ ./backend/app/
+COPY backend/research_manager.db ./backend/research_manager.db
+COPY backend/uploads/ ./backend/uploads/
 COPY frontend/dist/ ./frontend/dist/
 
 WORKDIR /app/backend
