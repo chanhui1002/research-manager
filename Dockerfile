@@ -2,8 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-ENV SUPABASE_URL=https://afjfieukktcjxgvtawjy.supabase.co
-ENV SUPABASE_SERVICE_KEY_B64=c2Jfc2VjcmV0XzNrMDJiTWVBbFFxd0RQRnJILW8xRWdfNFRjUTRESWU=
+ENV ATTACHMENT_STORAGE=local
 
 COPY backend/requirements.txt ./backend/
 RUN pip install --no-cache-dir -r backend/requirements.txt
