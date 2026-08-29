@@ -16,7 +16,7 @@ router = APIRouter()
 
 STORAGE = os.getenv("ATTACHMENT_STORAGE", "local").lower()
 
-SUPABASE_URL = os.getenv("SUPABASE_URL", "https://afjfieukktcjxgvtawjy.supabase.co")
+SUPABASE_URL = os.getenv("SUPABASE_URL", "https://bezoerkrubjvceetpmwv.supabase.co")
 _key_b64 = os.getenv("SUPABASE_SERVICE_KEY_B64", "")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY", "") or (base64.b64decode(_key_b64).decode() if _key_b64 else "")
 BUCKET_NAME = "attachments"
