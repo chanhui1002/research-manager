@@ -1,0 +1,2 @@
+backend/uploads/** -text -filter -diff
+*.db -text -filter
